@@ -79,7 +79,11 @@ class Solver:
             partition_list = list(range(len(self.net.partitions)))
         # Latency objective
         if   self.objective == LATENCY:
-            return self.net.get_latency(partition_list)
+            return self.net.get_latency(
+                freq=self.net.platform.board_freq, 
+                pipeline=True,
+                delay=0,
+                partition_list=partition_list)
         # Throughput objective
         elif self.objective == THROUGHPUT:
             return -self.net.get_throughput(partition_list)
